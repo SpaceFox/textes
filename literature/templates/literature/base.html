@@ -1,0 +1,17 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head lang="fr">
+    <meta charset="UTF-8">
+	<link href='http://fonts.googleapis.com/css?family=Josefin+Slab' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Merriweather&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" media="screen" href="{% static 'literature/css/style.css' %}" />
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+    <div id="wrapper">
+        {% block content %}{% endblock %}
+        <footer>CC-BY-NC-ND SpaceFox</footer>
+    </div>
+</body>
+</html>
