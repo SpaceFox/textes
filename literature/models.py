@@ -1,6 +1,7 @@
 # coding: utf-8
 
 from django.db import models
+import markdown
 
 # Create your models here.
 
@@ -17,6 +18,11 @@ class Element(models.Model):
     preface_html = models.TextField(u'Préface (HTML)', null=True, blank=True)
     postface = models.TextField(u'Postface', null=True, blank=True)
     postface_html = models.TextField(u'Postface (HTML)', null=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        self.preface_html = markdown.markdown(self.preface)
+        self.postface_html = markdown.markdown(self.postface)
+        super(Element, self).save(*args, **kwargs)
 
     class Meta:
         abstract = True
@@ -36,4 +42,8 @@ class Chapter(Element):
 
     book = models.ForeignKey(u'Book')
     text = models.TextField(u'Texte')
-    text_html = models.TextField(u'Texte (HTML)')
+    text_html = models.TextField(u'Texte (HTML)', blank=True)
+
+    def save(self, *args, **kwargs):
+        self.text_html = markdown.markdown(self.text)
+        super(Chapter, self).save(*args, **kwargs)
