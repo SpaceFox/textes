@@ -4,5 +4,10 @@
 
 {% block content %}
     <h1>{{ chapter.title }}</h1>
+    <aside>
+        <p>Publié le {{ chapter.pub_date }}</p>
+        {{ chapter.preface_html|safe }}
+    </aside>
     <section>{{ chapter.text_html|safe }}</section>
+    <aside>{{ chapter.postface_html|safe }}</aside>
 {% endblock %}

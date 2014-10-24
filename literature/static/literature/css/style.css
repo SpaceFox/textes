@@ -9,11 +9,23 @@ p {
 	line-height: 1.5em;
 	text-indent: 4ex;
 }
-section {
+section, aside {
 	margin: auto;
 	max-width: 85ex;
 }
-section p:first-of-type:first-letter {
-    font-size: 4em;
+aside {
+    background-color: #EEE;
+    color:#444;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    padding: 0 1em;
+}
+section p:first-of-type {
+    padding-top: 2em;
     text-indent: 0;
+}
+section p:first-of-type:first-letter {
+    font-size: 3.5em;
+    float: left;
+    margin-left: 1em;
 }
