@@ -1,0 +1,19 @@
+h1 {
+	font-family: 'Josefin Slab', serif;
+	text-align: center;
+	font-size: 3em;
+}
+p {
+	font-family: 'Merriweather', serif;
+	font-size: 90%;
+	line-height: 1.5em;
+	text-indent: 4ex;
+}
+section {
+	margin: auto;
+	max-width: 85ex;
+}
+section p:first-of-type:first-letter {
+    font-size: 4em;
+    text-indent: 0;
+}
