@@ -5,54 +5,93 @@ import markdown
 from django.template.defaultfilters import slugify
 from django.core.urlresolvers import reverse
 
-# Create your models here.
+
+class Genre(models.Model):
+
+    """Genre of text"""
+
+    name = models.CharField(u'Nom', max_length=50)
+    slug = models.SlugField(u'Slug', unique=True, editable=False)
+    description = models.TextField(u'Description')
+
+    def save(self):
+        self.slug = slugify(self.name)
+        super(Genre, self).save()
+
+    def __unicode__(self):
+        return self.name
 
 
-class Element(models.Model):
+class Text(models.Model):
 
-    """A text element"""
+    """A text element (short story or chapter)"""
 
     title = models.CharField(u'Titre', max_length=50)
     slug = models.SlugField(u'Slug', unique=True, editable=False)
+    text = models.TextField(u'Texte')
+    text_html = models.TextField(u'Texte (HTML)', blank=True, editable=False)
     pub_date = models.DateTimeField(u'Date de publication', auto_now_add=True)
     last_update = models.DateTimeField(u'Date de dernière mise à jour', auto_now=True)
-    preface = models.TextField(u'Préface', null=True, blank=True)
-    preface_html = models.TextField(u'Préface (HTML)', null=True, blank=True, editable=False)
-    postface = models.TextField(u'Postface', null=True, blank=True)
-    postface_html = models.TextField(u'Postface (HTML)', null=True, blank=True, editable=False)
+    author_comment = models.TextField(u'Commentaire de l\'auteur', null=True, blank=True)
+    author_comment_html = models.TextField(u'Commentaire de l\'auteur (HTML)', null=True, blank=True, editable=False)
 
     def save(self):
-        self.preface_html = markdown.markdown(self.preface)
-        self.postface_html = markdown.markdown(self.postface)
         self.slug = slugify(self.title)
-        super(Element, self).save()
+        self.text_html = markdown.markdown(self.text)
+        self.author_comment_html = markdown.markdown(self.author_comment)
+        super(Text, self).save()
 
     class Meta:
         abstract = True
 
 
-class Book(Element):
+class ShortStory(Text):
 
-    """A book, with one or more chapters"""
+    """A short story containing a single text"""
 
-    def __unicode__(self):
-        return u'Livre {}'.format(self.title)
-
-
-class Chapter(Element):
-
-    """A chapter or a single text"""
-
-    book = models.ForeignKey(u'Book')
-    text = models.TextField(u'Texte')
-    text_html = models.TextField(u'Texte (HTML)', blank=True, editable=False)
-
-    def save(self, *args, **kwargs):
-        self.text_html = markdown.markdown(self.text)
-        super(Chapter, self).save(*args, **kwargs)
+    genre = models.ManyToManyField(Genre, null=True, blank=True)
 
     def __unicode__(self):
-        return u'Chapitre {}'.format(self.title)
+        return u'{} (Nouvelle)'.format(self.title)
+
+    class Meta:
+        verbose_name = u'Nouvelle'
+
+
+class Chapter(Text):
+
+    """A novel chapter"""
+    novel = models.ForeignKey(u'Chapter')
+
+    def __unicode__(self):
+        return u'{} - {} (Roman)'.format(self.novel.title, self.title)
 
     def get_absolute_url(self):
         return reverse(u'literature.views.chapter', kwargs={u'slug': self.slug})
+
+    class Meta:
+        verbose_name = u'Chapitre'
+
+
+class Novel(models.Model):
+
+    """A novel contains several chapters"""
+
+    title = models.CharField(u'Titre', max_length=50)
+    slug = models.SlugField(u'Slug', unique=True, editable=False)
+    genre = models.ManyToManyField(Genre, null=True, blank=True)
+    pub_date = models.DateTimeField(u'Date de publication', auto_now_add=True)
+    last_update = models.DateTimeField(u'Date de dernière mise à jour', auto_now=True)
+    author_comment = models.TextField(u'Commentaire de l\'auteur', null=True, blank=True)
+    author_comment_html = models.TextField(u'Commentaire de l\'auteur (HTML)', null=True, blank=True, editable=False)
+
+    def save(self):
+        self.slug = slugify(self.title)
+        self.author_comment_html = markdown.markdown(self.author_comment)
+        super(Novel, self).save()
+
+    def __unicode__(self):
+        return u'{} (Roman)'.format(self.title)
+
+    class Meta:
+        verbose_name = u'Roman'

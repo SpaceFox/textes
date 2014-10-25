@@ -1,8 +1,9 @@
 from django.contrib import admin
 
-from .models import Book, Chapter
+from .models import Genre, ShortStory, Chapter, Novel
 
-# Register your models here.
 
-admin.site.register(Book)
+admin.site.register(Genre)
+admin.site.register(ShortStory)
 admin.site.register(Chapter)
+admin.site.register(Novel)
