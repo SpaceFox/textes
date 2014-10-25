@@ -1,13 +1,12 @@
 {%  extends "literature/base.html" %}
 
-{% block title %}{{ chapter.title }}{% endblock %}
+{% block title %}{{ text.html.title }}{% endblock %}
 
 {% block content %}
-    <h1>{{ chapter.title }}</h1>
+    <h1>{{ text.title }}</h1>
+    <section>{{ text.text_html|safe }}</section>
     <aside>
-        <p>Publié le {{ chapter.pub_date }}</p>
-        {{ chapter.preface_html|safe }}
+        <p>Publié le {{ text.pub_date }}</p>
+        {{ text.preface_html|safe }}
     </aside>
-    <section>{{ chapter.text_html|safe }}</section>
-    <aside>{{ chapter.postface_html|safe }}</aside>
 {% endblock %}

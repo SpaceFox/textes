@@ -1,0 +1,17 @@
+{%  extends "literature/base.html" %}
+
+{% load humanize %}
+
+{% block title %}{{ text.html.title }} (Nouvelle){% endblock %}
+
+{% block content %}
+    <h1>{{ text.title }}</h1>
+    <section>{{ text.text_html|safe }}</section>
+    <aside>
+        <p>
+            Cette nouvelle a été publié {{ text.pub_date|naturaltime }}{% if text.last_update %}
+            et mise à jour {{ text.last_update|naturaltime }}{% endif %}.
+        </p>
+        {{ text.preface_html|safe }}
+    </aside>
+{% endblock %}
