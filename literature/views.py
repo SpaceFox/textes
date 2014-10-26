@@ -6,8 +6,6 @@ from models import Chapter, ShortStory, Novel
 def short_story(request, slug):
 
     text = get_object_or_404(ShortStory, slug=slug)
-    short_stories = ShortStory.objects.all()
-    novels = Novel.objects.all()
     licence = {
         u'title': text.title,
         u'url': text.get_absolute_url()
@@ -16,14 +14,15 @@ def short_story(request, slug):
     return render(request, u'literature/short_story.html', {
         u'text': text,
         u'licence': licence,
-        u'short_stories': short_stories,
-        u'novels': novels,
+        u'short_stories': ShortStory.objects.all(),
+        u'novels': Novel.objects.all(),
     })
 
 
 def chapter(request, slug_novel, slug_chapter):
 
     text = get_object_or_404(Chapter, slug=slug_chapter)
+    chapters = text.novel.chapter_set.all()
     licence = {
         u'title': text.novel.title,
         u'url': text.novel.get_absolute_url()
@@ -32,6 +31,9 @@ def chapter(request, slug_novel, slug_chapter):
     return render(request, u'literature/chapter.html', {
         u'text': text,
         u'licence': licence,
+        u'chapters': chapters,
+        u'short_stories': ShortStory.objects.all(),
+        u'novels': Novel.objects.all(),
     })
 
 
@@ -44,4 +46,6 @@ def novel(request, slug):
     return render(request, u'literature/novel.html', {
         u'novel': novel,
         u'licence': licence,
+        u'short_stories': ShortStory.objects.all(),
+        u'novels': Novel.objects.all(),
     })
