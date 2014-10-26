@@ -6,6 +6,8 @@ from models import Chapter, ShortStory, Novel
 def short_story(request, slug):
 
     text = get_object_or_404(ShortStory, slug=slug)
+    short_stories = ShortStory.objects.all()
+    novels = Novel.objects.all()
     licence = {
         u'title': text.title,
         u'url': text.get_absolute_url()
@@ -14,6 +16,8 @@ def short_story(request, slug):
     return render(request, u'literature/short_story.html', {
         u'text': text,
         u'licence': licence,
+        u'short_stories': short_stories,
+        u'novels': novels,
     })
 
 

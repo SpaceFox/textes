@@ -1,22 +1,12 @@
 body {
     margin: 0;
 	font-family: 'Merriweather', serif;
+	font-size: 90%;
 }
 h1 {
 	font-family: 'Josefin Slab', serif;
 	text-align: center;
 	font-size: 8ex;
-}
-nav {
-    border-right: 1px solid #888;
-}
-nav h1 {
-    text-align: left;
-    font-size: 4ex;
-}
-ul {
-    list-style-type: none;
-    padding: 0;
 }
 a {
     color: #000;
@@ -28,24 +18,24 @@ a:hover {
 p {
 	text-indent: 4ex;
 }
-main p:first-of-type {
-    padding-top: 2ex;
-    text-indent: 0;
-}
-main p:first-of-type:first-letter {
-    font-size: 6ex;
-    float: left;
-    margin-left: 1ex;
-}
-.row {
+section, footer {
 	margin: auto;
-	max-width: 170ex;
+	max-width: 85ex;
 }
 footer {
     background-color: #EEE;
     color:#444;
     border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
-    padding: 1ex 2ex;
+    padding: 0 2ex;
     margin-bottom: 1ex;
+}
+section p:first-of-type {
+    padding-top: 2ex;
+    text-indent: 0;
+}
+section p:first-of-type:first-letter {
+    font-size: 6ex;
+    float: left;
+    margin-left: 1ex;
 }
