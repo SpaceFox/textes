@@ -89,3 +89,9 @@ STATIC_ROOT = os.path.join(SITE_ROOT, 'static')
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Load the production settings, overwrite the existing ones if needed
+try:
+    from settings_prod import *
+except ImportError:
+    pass
