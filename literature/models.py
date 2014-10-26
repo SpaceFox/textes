@@ -51,6 +51,9 @@ class ShortStory(Text):
 
     genre = models.ManyToManyField(Genre, null=True, blank=True)
 
+    def get_absolute_url(self):
+        return reverse(u'literature.views.short_story', kwargs={u'slug': self.slug})
+
     def __unicode__(self):
         return u'{} (Nouvelle)'.format(self.title)
 
@@ -61,13 +64,13 @@ class ShortStory(Text):
 class Chapter(Text):
 
     """A novel chapter"""
-    novel = models.ForeignKey(u'Chapter')
+    novel = models.ForeignKey(u'Novel')
+
+    def get_absolute_url(self):
+        return reverse(u'literature.views.chapter', kwargs={u'slug_chapter': self.slug, u'slug_novel': self.novel.slug})
 
     def __unicode__(self):
         return u'{} - {} (Roman)'.format(self.novel.title, self.title)
-
-    def get_absolute_url(self):
-        return reverse(u'literature.views.chapter', kwargs={u'slug': self.slug})
 
     class Meta:
         verbose_name = u'Chapitre'
@@ -89,6 +92,9 @@ class Novel(models.Model):
         self.slug = slugify(self.title)
         self.author_comment_html = markdown.markdown(self.author_comment)
         super(Novel, self).save()
+
+    def get_absolute_url(self):
+        return reverse(u'literature.views.novel', kwargs={u'slug': self.slug})
 
     def __unicode__(self):
         return u'{} (Roman)'.format(self.title)
