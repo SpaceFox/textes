@@ -11,6 +11,4 @@ urlpatterns = patterns(
     url(ur'^nouvelle/(?P<slug>.+)/$', u'literature.views.short_story'),
 )
 if settings.DEBUG:
-    print(settings.STATIC_URL)
-    print(settings.STATIC_ROOT)
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
