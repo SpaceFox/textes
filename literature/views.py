@@ -45,6 +45,7 @@ def chapter(request, slug_novel, slug_chapter):
 def novel(request, slug):
 
     novel = get_object_or_404(Novel, slug=slug)
+    chapters = novel.chapter_set.all().order_by(u'sequence')
     licence = {
         u'title': novel.title,
         u'url': novel.get_absolute_url()
@@ -52,6 +53,7 @@ def novel(request, slug):
     return render(request, u'literature/novel.html', {
         u'novel': novel,
         u'licence': licence,
+        u'chapters': chapters,
         u'short_stories': ShortStory.objects.all(),
         u'novels': Novel.objects.all(),
     })

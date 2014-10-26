@@ -2,16 +2,41 @@
 
 {% load humanize %}
 
-{% block title %}{{{ text.title }}{% endblock %}
+{% block title %}{{ novel.title }} (Roman){% endblock %}
 
-{% block content %}
-    <h1>{{ text.title }}</h1>
+{% block header %}{{ novel.title }}{% endblock %}
+
+{% block text %}
+    {% for chapter in chapters %}
+        <h1><a href="{{ chapter.get_absolute_url }}">{{ chapter.title }}</a></h1>
+        {{ chapter.text_html|truncatewords_html:50|safe }}
+        <p class="text-right"><em>→ <a href="{{ chapter.get_absolute_url }}">Lire ce chapitre</a></em></p>
+    {% endfor %}
 {% endblock %}
 
-{% block footer %}
-    <p>
-        Ce roman a été publié {{ text.pub_date|naturaltime }}{% if text.last_update %}
-        et mis à jour {{ text.last_update|naturaltime }}{% endif %}.
-    </p>
-    {{ text.author_comment_html|safe }}
+{% block nav %}
+    <h1>Romans</h1>
+    <ul>
+    {% for novel in novels %}
+        <li><a href="{{ novel.get_absolute_url }}">{{ novel.title }}</a></li>
+    {% endfor %}
+    </ul>
+    <h1>Nouvelles</h1>
+    <ul>
+    {% for short_story in short_stories %}
+        <li><a href="{{ short_story.get_absolute_url }}">{{ short_story.title }}</a></li>
+    {% endfor %}
+    </ul>
+{% endblock %}
+
+{% block aside %}
+    <h1>Publication</h1>
+    <p>Publié {{ novel.pub_date|naturaltime }}</p>
+    {% if novel.last_update %}
+        <p>Mis à jour {{ novel.last_update|naturaltime }}</p>
+    {% endif %}
+    {% if novel.author_comment_html %}
+        <h1>Commentaire</h1>
+        {{ novel.author_comment_html|safe }}
+    {% endif %}
 {% endblock %}
