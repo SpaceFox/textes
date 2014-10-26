@@ -1,12 +1,11 @@
 h1 {
 	font-family: 'Josefin Slab', serif;
 	text-align: center;
-	font-size: 3em;
+	font-size: 8ex;
 }
 p {
 	font-family: 'Merriweather', serif;
 	font-size: 90%;
-	line-height: 1.5em;
 	text-indent: 4ex;
 }
 section, aside {
@@ -18,14 +17,14 @@ aside {
     color:#444;
     border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
-    padding: 0 1em;
+    padding: 0 2ex;
 }
 section p:first-of-type {
-    padding-top: 2em;
+    padding-top: 2ex;
     text-indent: 0;
 }
 section p:first-of-type:first-letter {
-    font-size: 3.5em;
+    font-size: 6ex;
     float: left;
-    margin-left: 1em;
+    margin-left: 1ex;
 }
