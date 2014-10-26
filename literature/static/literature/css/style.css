@@ -27,9 +27,6 @@ a {
 a:hover {
     text-decoration: underline;
 }
-main {
-	max-width: 85ex;
-}
 main p {
 	text-indent: 4ex;
 }
