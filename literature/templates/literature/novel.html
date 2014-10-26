@@ -10,7 +10,8 @@
     {% for chapter in chapters %}
         <h1><a href="{{ chapter.get_absolute_url }}">{{ chapter.title }}</a></h1>
         {{ chapter.text_html|truncatewords_html:50|safe }}
-        <p class="text-right"><em>→ <a href="{{ chapter.get_absolute_url }}">Lire ce chapitre</a></em></p>
+        <p class="text-right pull-right"><em>→ <a href="{{ chapter.get_absolute_url }}">Lire ce chapitre</a></em></p>
+        <p><em>Publié {{ chapter.last_update|naturaltime }}</em></p>
     {% endfor %}
 {% endblock %}
 
