@@ -57,3 +57,12 @@ def novel(request, slug):
         u'short_stories': ShortStory.objects.all(),
         u'novels': Novel.objects.all(),
     })
+
+
+def home(request):
+
+    return render(request, u'literature/home.html', {
+        u'short_stories': ShortStory.objects.all(),
+        u'novels': Novel.objects.all(),
+    })
+

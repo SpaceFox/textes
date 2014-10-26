@@ -5,7 +5,7 @@ from django.conf.urls.static import static
 
 urlpatterns = patterns(
     '',
-    #url(r'^$', views.IndexView.as_view(), name='index'),
+    url(r'^$', u'literature.views.home'),
     url(ur'^roman/(?P<slug_novel>.+)/(?P<slug_chapter>.+)/$', u'literature.views.chapter'),
     url(ur'^roman/(?P<slug>.+)/$', u'literature.views.novel'),
     url(ur'^nouvelle/(?P<slug>.+)/$', u'literature.views.short_story'),

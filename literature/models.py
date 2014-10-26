@@ -90,6 +90,9 @@ class Novel(models.Model):
     author_comment = models.TextField(u'Commentaire de l\'auteur', null=True, blank=True)
     author_comment_html = models.TextField(u'Commentaire de l\'auteur (HTML)', null=True, blank=True, editable=False)
 
+    def first_chapter(self):
+        return self.chapter_set.order_by(u'sequence').first()
+
     def save(self):
         self.slug = slugify(self.title)
         self.author_comment_html = markdown.markdown(self.author_comment)

@@ -2,13 +2,14 @@ body {
     margin: 0;
 	font-family: 'Merriweather', serif;
 }
-h1 {
+h1, h2 {
 	font-family: 'Josefin Slab', serif;
 	font-size: 4ex;
 }
 header h1 {
     text-align: center;
     font-size: 8ex;
+    font-weight: bold;
 }
 nav {
     border-right: 1px solid #888;
@@ -50,4 +51,11 @@ footer {
     border-bottom: 1px solid #ccc;
     padding: 1ex 2ex;
     margin-bottom: 1ex;
+}
+.home div h1 {
+    font-size: 6ex;
+    text-align: center;
+}
+.home .withborder {
+    border-right: 1px solid #888;
 }
