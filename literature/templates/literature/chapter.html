@@ -2,11 +2,16 @@
 
 {% load humanize %}
 
-{% block title %}{{ text.title }} (Nouvelle){% endblock %}
+{% block title %}{{ text.novel.title }} - {{ text.title }} (Roman){% endblock %}
 
-{% block header %}{{ text.title }}{% endblock %}
+{% block header %}{{ text.novel.title }} - {{ text.title }}{% endblock %}
 
-{% block text %}{{ text.text_html|safe }}{% endblock %}
+{% block text %}
+    {{ text.text_html|safe }}
+    {% if next_chapter %}
+        <p class="text-right"><em>→ <a href="{{ next_chapter.get_absolute_url }}">Chapitre suivant : {{ next_chapter.title }}</a></em></p>
+    {% endif %}
+{% endblock %}
 
 {% block nav %}
     <h1>Chapitres</h1>
@@ -30,6 +35,13 @@
 {% endblock %}
 
 {% block aside %}
+    <h1>Navigation</h1>
+    {% if previous_chapter %}
+        <p>← <a href="{{ previous_chapter.get_absolute_url }}">Chapitre précédent</a></p>
+    {% endif %}
+    {% if next_chapter %}
+        <p>→ <a href="{{ next_chapter.get_absolute_url }}">Chapitre suivant</a></p>
+    {% endif %}
     <h1>Publication</h1>
     <p>Publié {{ text.pub_date|naturaltime }}</p>
     {% if text.last_update %}

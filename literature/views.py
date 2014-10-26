@@ -22,7 +22,10 @@ def short_story(request, slug):
 def chapter(request, slug_novel, slug_chapter):
 
     text = get_object_or_404(Chapter, slug=slug_chapter)
-    chapters = text.novel.chapter_set.all()
+    chapters = text.novel.chapter_set.all().order_by(u'sequence')
+    previous_chapter = Chapter.objects.filter(sequence__lt=text.sequence).order_by(u'-sequence').first()
+    next_chapter = Chapter.objects.filter(sequence__gt=text.sequence).order_by(u'sequence').first()
+
     licence = {
         u'title': text.novel.title,
         u'url': text.novel.get_absolute_url()
@@ -34,10 +37,13 @@ def chapter(request, slug_novel, slug_chapter):
         u'chapters': chapters,
         u'short_stories': ShortStory.objects.all(),
         u'novels': Novel.objects.all(),
+        u'previous_chapter': previous_chapter,
+        u'next_chapter': next_chapter,
     })
 
 
 def novel(request, slug):
+
     novel = get_object_or_404(Novel, slug=slug)
     licence = {
         u'title': novel.title,
