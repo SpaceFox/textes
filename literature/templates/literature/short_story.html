@@ -11,7 +11,7 @@
 
 {% block footer %}
     <p>
-        Cete nouvelle a été publiée {{ text.pub_date|naturaltime }}{% if text.last_update %}
+        Cette nouvelle a été publiée {{ text.pub_date|naturaltime }}{% if text.last_update %}
         et mise à jour {{ text.last_update|naturaltime }}{% endif %}.
     </p>
     {{ text.author_comment_html|safe }}
