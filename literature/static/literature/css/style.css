@@ -4,15 +4,17 @@ body {
 }
 h1 {
 	font-family: 'Josefin Slab', serif;
-	text-align: center;
-	font-size: 8ex;
+	font-size: 4ex;
+}
+header h1 {
+    text-align: center;
+    font-size: 8ex;
 }
 nav {
     border-right: 1px solid #888;
 }
-nav h1 {
-    text-align: left;
-    font-size: 4ex;
+aside {
+    border-left: 1px solid #888;
 }
 ul {
     list-style-type: none;
@@ -25,7 +27,7 @@ a {
 a:hover {
     text-decoration: underline;
 }
-p {
+main p {
 	text-indent: 4ex;
 }
 main p:first-of-type {

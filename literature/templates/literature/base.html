@@ -14,15 +14,15 @@
 <body>
     <div class="row">
         <header class="col-lg-12"><h1>{% block header %}{% endblock %}</h1></header>
-        <nav role="navigation" class="col-lg-2">
+        <nav role="navigation" class="col-lg-3">
             {% block nav %}{% endblock %}
         </nav>
-        <div class="col-lg-1"></div>
         <main role="main" class="col-lg-6">
             {% block text %}{% endblock %}
         </main>
-        <div class="col-lg-1"></div>
-        <aside class="col-lg-2">Droite</aside>
+        <aside class="col-lg-3">
+            {% block aside %}{% endblock %}
+        </aside>
         <footer class="col-lg-12">
             <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">
                 <img alt="Licence Creative Commons" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png" />

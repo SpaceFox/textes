@@ -23,10 +23,14 @@
     </ul>
 {% endblock %}
 
-{% block footer %}
-    <p>
-        Cette nouvelle a été publiée {{ text.pub_date|naturaltime }}{% if text.last_update %}
-        et mise à jour {{ text.last_update|naturaltime }}{% endif %}.
-    </p>
-    {{ text.author_comment_html|safe }}
+{% block aside %}
+    <h1>Publication</h1>
+    <p>Publiée {{ text.pub_date|naturaltime }}</p>
+    {% if text.last_update %}
+        <p>Mise à jour {{ text.last_update|naturaltime }}</p>
+    {% endif %}
+    {% if text.author_comment_html %}
+        <h1>Commentaire</h1>
+        {{ text.author_comment_html|safe }}
+    {% endif %}
 {% endblock %}
