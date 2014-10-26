@@ -65,6 +65,8 @@ class Chapter(Text):
 
     """A novel chapter"""
     novel = models.ForeignKey(u'Novel')
+    # Float do handle interludes without chapter numbers de-synchronization
+    sequence = models.FloatField(u'Sequence', default=1.0)
 
     def get_absolute_url(self):
         return reverse(u'literature.views.chapter', kwargs={u'slug_chapter': self.slug, u'slug_novel': self.novel.slug})
