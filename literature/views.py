@@ -14,8 +14,6 @@ def short_story(request, slug):
     return render(request, u'literature/short_story.html', {
         u'text': text,
         u'licence': licence,
-        u'short_stories': ShortStory.objects.all(),
-        u'novels': Novel.objects.all(),
     })
 
 
@@ -23,8 +21,8 @@ def chapter(request, slug_novel, slug_chapter):
 
     text = get_object_or_404(Chapter, slug=slug_chapter)
     chapters = text.novel.chapter_set.all().order_by(u'sequence')
-    previous_chapter = Chapter.objects.filter(sequence__lt=text.sequence).order_by(u'-sequence').first()
-    next_chapter = Chapter.objects.filter(sequence__gt=text.sequence).order_by(u'sequence').first()
+    previous_chapter = text.novel.chapter_set.filter(sequence__lt=text.sequence).order_by(u'-sequence').first()
+    next_chapter = text.novel.chapter_set.filter(sequence__gt=text.sequence).order_by(u'sequence').first()
 
     licence = {
         u'title': text.novel.title,
@@ -35,8 +33,6 @@ def chapter(request, slug_novel, slug_chapter):
         u'text': text,
         u'licence': licence,
         u'chapters': chapters,
-        u'short_stories': ShortStory.objects.all(),
-        u'novels': Novel.objects.all(),
         u'previous_chapter': previous_chapter,
         u'next_chapter': next_chapter,
     })
@@ -54,15 +50,10 @@ def novel(request, slug):
         u'novel': novel,
         u'licence': licence,
         u'chapters': chapters,
-        u'short_stories': ShortStory.objects.all(),
-        u'novels': Novel.objects.all(),
     })
 
 
 def home(request):
 
-    return render(request, u'literature/home.html', {
-        u'short_stories': ShortStory.objects.all(),
-        u'novels': Novel.objects.all(),
-    })
+    return render(request, u'literature/home.html')
 
