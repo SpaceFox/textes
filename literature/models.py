@@ -2,8 +2,8 @@
 
 from django.db import models
 import markdown
-from django.template.defaultfilters import slugify
 from django.core.urlresolvers import reverse
+from uuslug import uuslug
 
 
 class Genre(models.Model):
@@ -11,11 +11,11 @@ class Genre(models.Model):
     """Genre of text"""
 
     name = models.CharField(u'Nom', max_length=50)
-    slug = models.SlugField(u'Slug', unique=True, editable=False)
+    slug = models.CharField(u'Slug', max_length=100, unique=True, editable=False)
     description = models.TextField(u'Description')
 
     def save(self):
-        self.slug = slugify(self.name)
+        self.slug = uuslug(self.title, instance=self)
         super(Genre, self).save()
 
     def __unicode__(self):
@@ -27,7 +27,7 @@ class Text(models.Model):
     """A text element (short story or chapter)"""
 
     title = models.CharField(u'Titre', max_length=50)
-    slug = models.SlugField(u'Slug', unique=True, editable=False)
+    slug = models.CharField(u'Slug', max_length=100, unique=True, editable=False)
     text = models.TextField(u'Texte')
     text_html = models.TextField(u'Texte (HTML)', blank=True, editable=False)
     pub_date = models.DateTimeField(u'Date de publication', auto_now_add=True)
@@ -36,7 +36,7 @@ class Text(models.Model):
     author_comment_html = models.TextField(u'Commentaire de l\'auteur (HTML)', null=True, blank=True, editable=False)
 
     def save(self):
-        self.slug = slugify(self.title)
+        self.slug = uuslug(self.title, instance=self)
         self.text_html = markdown.markdown(self.text)
         self.author_comment_html = markdown.markdown(self.author_comment)
         super(Text, self).save()
@@ -83,7 +83,7 @@ class Novel(models.Model):
     """A novel contains several chapters"""
 
     title = models.CharField(u'Titre', max_length=50)
-    slug = models.SlugField(u'Slug', unique=True, editable=False)
+    slug = models.CharField(u'Slug', max_length=100, unique=True, editable=False)
     genre = models.ManyToManyField(Genre, null=True, blank=True)
     pub_date = models.DateTimeField(u'Date de publication', auto_now_add=True)
     last_update = models.DateTimeField(u'Date de dernière mise à jour', auto_now=True)
@@ -94,7 +94,7 @@ class Novel(models.Model):
         return self.chapter_set.order_by(u'sequence').first()
 
     def save(self):
-        self.slug = slugify(self.title)
+        self.slug = uuslug(self.title, instance=self)
         self.author_comment_html = markdown.markdown(self.author_comment)
         super(Novel, self).save()
 
